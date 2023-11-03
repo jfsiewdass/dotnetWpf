@@ -1,0 +1,63 @@
+﻿<Application x:Class="layoutTest.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:layoutTest"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+             xmlns:helper="clr-namespace:layoutTest.Helper"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <helper:BooleanToLoadingTextConverter x:Key="BooleanToLoadingTextConverter"/>
+        <Style x:Key="BootstrapButton" TargetType="Button">
+            <!--<Setter Property="Background" Value="#007BFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#007BFF"/>
+            <Setter Property="BorderThickness" Value="1"/>-->
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0056b3"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#004085"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="CollapsedTemplate">
+            <Icon:PackIconMaterial Kind="{Binding IconKind}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ExpandedTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial Kind="{Binding IconKind}" />
+                <TextBlock Text="{Binding Header}"  Margin="5,0,0,0" />
+            </StackPanel>
+        </DataTemplate>
+        
+  
+        
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+
+            
+            <!-- otros recursos -->
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>
