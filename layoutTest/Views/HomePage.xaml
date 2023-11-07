@@ -19,7 +19,7 @@
     <Page.Visibility>
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BoleantoVisibility}" /> 
     </Page.Visibility>
-    <Grid Background="White">
+    <Grid>
         <Grid>
             <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Icon:PackIconMaterial Kind="Fingerprint" HorizontalAlignment="Center" Width="200" Height="200"/>

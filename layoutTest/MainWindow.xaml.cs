@@ -2,6 +2,7 @@
 using layoutTest.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,15 +25,30 @@ namespace layoutTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Persona> Personas { get; set; }
         public MainWindow()
         {
+           
             InitializeComponent();
+            Personas = new ObservableCollection<Persona>
+            {
+                new Persona { Name = "Cantidad de registros", Value = "30" },
+                new Persona { Name = "Reclamos al día", Value = "25" },
+                new Persona { Name = "Registros sin transmitir", Value = "25" },
+                new Persona { Name = "Fecha de última transmisión", Value = "dd / mm / yyyy" },
+                new Persona { Name = "Datos de ejemplo", Value = "25" },
+                new Persona { Name = "Datos de ejemplo", Value = "25" },
+                // Más personas...
+            };
+            this.DataContext = this;
             HomePage homePage = new HomePage();
             homePage.DataContext = new HomePageViewModel();
             ContentFrame.Navigate(homePage);
             string logo = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString()}\\images\\logo_cne.png";
             Logo.Source = new BitmapImage(new Uri(logo));
             this.SizeChanged += MainWindow_SizeChanged;
+
+            
 
         }
 
@@ -64,6 +80,7 @@ namespace layoutTest
                     aboutPage.DataContext = new AboutPageViewModel();
                     ContentFrame.Navigate(aboutPage);
                     break;
+                
             }
         }
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -81,5 +98,55 @@ namespace layoutTest
                 Column2.Width = new GridLength(400); // Establece un ancho fijo para el grid
             }
         }
+
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listView = sender as ListView;
+            if (listView != null && listView.SelectedItem != null)
+            {
+                var selectedItem = listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem;
+
+                if (selectedItem != null)
+                {
+                    switch (selectedItem.Name)
+                    {
+                        case "HomeMenu":
+                            HomePage homePage = new HomePage();
+                            homePage.DataContext = new HomePageViewModel();
+                            ContentFrame.Navigate(homePage);
+                            break;
+                        case "AboutMenu":
+                            AboutPage aboutPage = new AboutPage();
+                            aboutPage.DataContext = new AboutPageViewModel();
+                            ContentFrame.Navigate(aboutPage);
+                            break;
+                    }
+                }
+            }
+        }
+        private void ShutDownApp(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        
     }
-}
+    public class Persona
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
+    
+};
